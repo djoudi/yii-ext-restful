@@ -9,7 +9,7 @@ Yii::import('ext.restful.filters.*');
  * @package yii-ext-restful
  * @category controllers
  */
-abstract class RestfulController extends CExtController
+class RestfulController extends CExtController
 {
 
     /**
