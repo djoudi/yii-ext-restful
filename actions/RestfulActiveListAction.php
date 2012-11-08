@@ -8,5 +8,8 @@
  */
 class RestfulActiveListAction extends RestfulAction
 {
-    
+    public function run()
+    {
+        
+    }
 }
