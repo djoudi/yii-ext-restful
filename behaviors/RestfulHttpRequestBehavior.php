@@ -510,7 +510,7 @@ class RestfulHttpRequestBehavior extends CBehavior
 
         return isset($params[$name]) ? $params[$name] : $defaultValue;
     }
-    
+
     /**
      * Returns the named UNLINK parameter value.
      *
@@ -523,5 +523,33 @@ class RestfulHttpRequestBehavior extends CBehavior
         $params = $this->getUnlinkMethodParams();
 
         return isset($params[$name]) ? $params[$name] : $defaultValue;
+    }
+
+    /**
+     * Returns REST request parameters.
+     * @return array the request parameters
+     */
+    protected function getRestParams()
+    {
+        $result = array();
+        if (function_exists('mb_parse_str')) {
+            mb_parse_str(file_get_contents('php://input'), $result);
+        } else {
+            parse_str(file_get_contents('php://input'), $result);
+        }
+        return $result;
+    }
+
+    /**
+     * Gets the params by method.
+     * 
+     * @param string $method
+     * @return array
+     */
+    public function getMethodParams($method)
+    {
+        $methodName = 'get' . ucfirst(strtolower($method)) . 'MethodParams';
+        
+        return $this->owner->$methodName();
     }
 }
